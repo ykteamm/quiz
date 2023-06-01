@@ -70,7 +70,7 @@ class QuestionController extends Controller
 
             }
 
-            $json = json_encode($array);
+            $json = $array;
 
             $new = new SelectQuestion;
             $new->question_id = $question->id;
@@ -125,7 +125,7 @@ class QuestionController extends Controller
     {
         // return $request;
 
-        $json = json_encode($request->category_ids);
+        $json = ($request->category_ids);
 
         $question = Question::find($id);
         $question->link = $json;

@@ -15,11 +15,13 @@ class Quiz extends Component
 
     public $error;
     public $message;
+    public $message2;
 
     public $user_id;
 
     public $full_name;
     public $age;
+    public $phone;
     public $mail;
     public $weight;
     public $length;
@@ -29,12 +31,15 @@ class Quiz extends Component
     protected $listeners = [
         'inputName' => 'input_Name',
         'inputAge' => 'input_Age',
+        'inputPhone' => 'input_Phone',
         'inputMail' => 'input_Mail',
         'buttonSelect' => 'button_Select',
         'inputWeight' => 'input_Weight',
         'inputLength' => 'input_Length',
         'inputCheckbox' => 'input_Checkbox',
-        'checkboxAdd' => 'checkbox_Add'
+        'checkboxAdd' => 'checkbox_Add',
+        'prevQuiz' => 'prev_Quiz',
+
     ];
 
     public function mount()
@@ -43,77 +48,166 @@ class Quiz extends Component
         $this->quiz = Question::where('sort',$this->sort)->first();
     }
 
-    public function input_Name($s)
+    public function prev_Quiz($prev_sort)
     {
-        if($s == 2)
+        if($prev_sort > 8)
         {
+            $hist = [];
+            $user = User::find($this->user_id);
+
+                if(in_array($prev_sort,$user->history))
+                {
+                    foreach($user->history as $us)
+                    {
+                        if(intval($prev_sort) != intval($us))
+                        {
+                            $hist[] = $us;
+                        }
+                    }
+                }else{
+                    foreach($user->history as $us)
+                    {
+
+                            $hist[] = $us;
+                    }
+
+                }
+                $user->history = $hist;
+                $user->save();
+
+        }
+
+        if($prev_sort == 5)
+        {
+            $question = Question::where('sort',$prev_sort-1)->first();
+            $answer = Answer::where('user_id',$this->user_id)->where('question_id',$question->id)->orderBy('id','DESC')->first();
+            if($answer->select == 2)
+            {
+                $this->quiz = Question::where('sort',$prev_sort-1)->first();
+
+            }else{
+                $this->quiz = Question::where('sort',7)->first();
+
+            }
+        }elseif($prev_sort == 7)
+        {
+            $this->quiz = Question::where('sort',4)->first();
+        }
+        elseif($prev_sort == 8)
+        {
+            $this->quiz = Question::where('sort',6)->first();
+        }
+        else{
+            $this->quiz = Question::where('sort',$prev_sort-1)->first();
+        }
+    }
+
+    public function input_Name($next_sort)
+    {
             if($this->full_name)
             {
-                $user = new User;
-                $user->full_name = $this->full_name;
-                $user->history = [$s-1];
-                $user->save();
+                if($this->user_id)
+                {
+                    $user = User::find($this->user_id);
+                    $user->full_name = $this->full_name;
+                    $user->save();
+                }else{
+                    $user = new User;
+                    $user->full_name = $this->full_name;
+                    $user->history = [$next_sort-1];
+                    $user->save();
+                }
 
                 $answer = new Answer();
                 $answer->user_id = $user->id;
-                $answer->question_id = Question::where('sort',$s-1)->first()->id;
+                $answer->question_id = $this->quiz->id;
                 $answer->type = 1;
                 $answer->input = $this->full_name;
                 $answer->save();
 
                 $this->user_id = $user->id;
 
-                $this->quiz = Question::where('sort',$s)->first();
+                $this->quiz = Question::where('sort',$next_sort)->first();
 
                 $this->error = '';
 
             }else{
                 $this->error = 'Ismni kiriting';
-                $this->quiz = Question::where('sort',$s-1)->first();
             }
-        }
-
     }
-
-    public function input_Age($s)
+    public function input_Age($next_sort)
     {
-        if($s == 3)
-        {
             if($this->age)
             {
                 if($this->age < 18)
                 {
                     $this->error = '18 dan katta yosh kiriting';
-                    $this->quiz = Question::where('sort',$s-1)->first();
+                    $this->quiz = Question::where('sort',$next_sort-1)->first();
                 }else{
+
                     $user = User::find($this->user_id);
 
-                    $user->age = $this->age;
-                    $history = $user->history;
-                    $history[] = $s-1;
-                    $user->history = $history;
-                    $user->save();
+                    if(in_array($next_sort-1,$user->history))
+                    {
+                        $user->age = $this->age;
+                        $user->save();
+                    }else{
+                        $user->age = $this->age;
+                        $history = $user->history;
+                        $history[] = $next_sort-1;
+                        $user->history = $history;
+                        $user->save();
+                    }
 
                     $answer = new Answer();
                     $answer->user_id = $user->id;
-                    $answer->question_id = Question::where('sort',$s-1)->first()->id;
+                    $answer->question_id = $this->quiz->id;
                     $answer->type = 1;
                     $answer->input = $this->age;
                     $answer->save();
 
 
-                    $this->quiz = Question::where('sort',$s)->first();
+                    $this->quiz = Question::where('sort',$next_sort)->first();
                     $this->error = '';
                 }
             }
             else{
                     $this->error = 'Yoshni kiriting';
-                    $this->quiz = Question::where('sort',$s-1)->first();
             }
-        }
 
     }
+    public function input_Phone($next_sort)
+    {
+        if($this->phone)
+        {
+            $user = User::find($this->user_id);
 
+            if(in_array($next_sort-1,$user->history))
+            {
+                $user->email = $this->phone;
+                $user->save();
+            }else{
+                $user->email = $this->phone;
+                $history = $user->history;
+                $history[] = $next_sort-1;
+                $user->history = $history;
+                $user->save();
+            }
+
+            $answer = new Answer();
+            $answer->user_id = $user->id;
+            $answer->question_id = $this->quiz->id;
+            $answer->type = 1;
+            $answer->input = $this->phone;
+            $answer->save();
+
+            $this->quiz = Question::with('select','category')->where('sort',$next_sort)->first();
+            $this->error = '';
+        }
+        else{
+            $this->error = 'Telefon raqamingizni kiriting';
+        }
+    }
     public function input_Mail($s)
     {
         if($s == 4)
@@ -160,11 +254,20 @@ class Quiz extends Component
         {
             if($this->weight)
             {
+
                     $user = User::find($this->user_id);
                     $user->weight = $this->weight;
-                    $history = $user->history;
-                    $history[] = $s-1;
-                    $user->history = $history;
+
+                    if(!in_array($s-1,$user->history))
+                    {
+                        $history = $user->history;
+                        $history[] = $s-1;
+                        $user->history = $history;
+                    }else{
+                        $history = $user->history;
+                        $user->history = $history;
+                    }
+
                     $user->save();
 
                     $answer = new Answer();
@@ -193,9 +296,16 @@ class Quiz extends Component
             {
                     $user = User::find($this->user_id);
                     $user->length = $this->length;
-                    $history = $user->history;
-                    $history[] = $s-1;
-                    $user->history = $history;
+                    if(!in_array($s-1,$user->history))
+                    {
+                        $history = $user->history;
+                        $history[] = $s-1;
+                        $user->history = $history;
+                    }else{
+                        $history = $user->history;
+                        $user->history = $history;
+                    }
+
                     $user->save();
 
                     $answer = new Answer();
@@ -224,7 +334,10 @@ class Quiz extends Component
 
         if($max_sort->sort == $s)
         {
-            $ans_array = Answer::where('select',1)->where('user_id',$this->user_id)->orderBy('question_id','DESC')->limit(5)->count();
+            $ques = Question::whereIn('sort',[23,24,25,26,27,28])->pluck('id')->toArray();
+
+            $ans_array = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques)->orderBy('question_id','DESC')->count();
+
             if($ans_array > 1)
             {
                 $this->message = 'Sizda B12 yetishmovchiligi mavjud.';
@@ -233,23 +346,49 @@ class Quiz extends Component
             }else{
                 $this->message = 'Sizda B12 vitaminiga extiyoj kam.';
             }
+            $ques2 = Question::whereIn('sort',[29,30,31,32])->pluck('id')->toArray();
+
+            $ans_array2 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques2)->orderBy('question_id','DESC')->count();
+
+            if($ans_array2 > 1)
+            {
+                $this->message2 = 'Sizda D vitamini yetishmovchiligi mavjud.';
+            }elseif($ans_array2 > 3){
+                $this->message2 = 'Sizda D vitamini yetishmovchiligi juda yuqori.';
+            }else{
+                $this->message2 = 'Sizda D vitaminiga extiyoj kam.';
+            }
+
 
             $this->quiz = Question::with('select','category')->where('sort',$s)->first();
 
         }else{
             $question = Question::with('select','category')->where('sort',$s-1)->first();
             $user = User::find($this->user_id);
-            $history = $user->history;
-            $history[] = $s-1;
-            $user->history = $history;
-            $user->save();
+            if(!in_array($s-1,$user->history))
+                {
+                    $history = $user->history;
+                    $history[] = $s-1;
+                    $user->history = $history;
+                    $user->save();
+                }
 
-            $ans = new Answer();
-            $ans->user_id = $this->user_id;
-            $ans->question_id = Question::where('sort',$s-1)->first()->id;
-            $ans->type = 2;
-            $ans->select = $answer;
-            $ans->save();
+            $exists_question = Question::where('sort',$s-1)->first();
+            $exists_answer = Answer::where('user_id',$this->user_id)->where('question_id',$exists_question->id)->orderBy('id','DESC')->first();
+
+            if($exists_answer)
+                {
+                    $exists_answer->select = $answer;
+                    $exists_answer->save();
+                }else{
+                    $ans = new Answer();
+                    $ans->user_id = $this->user_id;
+                    $ans->question_id = Question::where('sort',$s-1)->first()->id;
+                    $ans->type = 2;
+                    $ans->select = $answer;
+                    $ans->save();
+                }
+
 
             if( ($s-1) == 4)
             {
@@ -261,14 +400,27 @@ class Quiz extends Component
                     $this->quiz = Question::with('select','category')->where('sort',7)->first();
 
                 }
+
+                $userw = User::find($this->user_id);
+                $i = 0;
+                $histot = $user->history;
                     foreach($question->link as $value)
                         {
-                            $history[] = intval($value);
+                            if(!in_array(intval($value),$user->history))
+                            {
+                                $histot[] = intval($value);
+                                $i = $i + 1;
+                            }
                         }
-                        // $history[] = $s-1;
-                        $user->history = $history;
-                        $user->save();
-            }elseif(($s-1) == 7)
+                        // if($i > 1)
+                        //     {
+                                $userw->history = $histot;
+                                $userw->save();
+                            // }
+
+
+            }
+            elseif(($s-1) == 7)
             {
                 if(in_array($answer,[1,2,3]))
                 {
@@ -281,32 +433,19 @@ class Quiz extends Component
                 }
             }
             else{
-                $s = $this->getSort($user->history,$s);
+                if($s == 10)
+                {
+                    $this->quiz = Question::with('select','category')->where('sort',10)->first();
+
+                }else{
+                    $s = $this->getSort($user->history,$s);
                     $this->quiz = Question::with('select','category')->where('sort',$s)->first();
+                }
+
 
             }
         }
 
-
-            // if($question->link != null)
-            // {
-            //     if(isset($question->link[$answer]))
-            //     {
-            //         $this->quiz = Question::with('select','category')->where('sort',$question->link[$answer])->first();
-
-            //     }else{
-            //         $this->quiz = Question::with('select','category')->where('sort',$s)->first();
-            //     }
-            //         foreach($question->link as $value)
-            //         {
-            //             $history[] = intval($value);
-            //         }
-            //         // $history[] = $s-1;
-            //         $user->history = $history;
-            //         $user->save();
-            // }else{
-            //     $this->quiz = Question::with('select','category')->where('sort',$s)->first();
-            // }
     }
 
     public function input_Checkbox($s)
@@ -314,20 +453,31 @@ class Quiz extends Component
         if(count($this->values) > 0)
         {
                 $user = User::find($this->user_id);
-                $history = $user->history;
-                $history[] = $s-1;
-                $user->history = $history;
-                $user->save();
+                if(!in_array($s-1,$user->history))
+                {
+                    $history = $user->history;
+                    $history[] = $s-1;
+                    $user->history = $history;
+                    $user->save();
+                }
 
-                $answer = new Answer();
-                $answer->user_id = $this->user_id;
-                $answer->question_id = Question::where('sort',$s-1)->first()->id;
-                $answer->type = 3;
-                $answer->checkbox = json_encode($this->values);
-                $answer->save();
+                $exists_question = Question::where('sort',$s-1)->first();
+                $exists_answer = Answer::where('user_id',$this->user_id)->where('question_id',$exists_question->id)->orderBy('id','DESC')->first();
+
+                if($exists_answer)
+                    {
+                        $exists_answer->checkbox = json_encode($this->values);
+                        $exists_answer->save();
+                    }else{
+                        $answer = new Answer();
+                        $answer->user_id = $this->user_id;
+                        $answer->question_id = Question::where('sort',$s-1)->first()->id;
+                        $answer->type = 3;
+                        $answer->checkbox = json_encode($this->values);
+                        $answer->save();
+                    }
 
             $this->quiz = Question::where('sort',$s)->first();
-
 
         }else{
 
