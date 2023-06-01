@@ -10,7 +10,7 @@
 
                         @if ($quiz->sort != 1)
                             <div class="header__logo">
-                                <span style="color: black;font-size: 14px;"
+                                <span style="color: black;font-size: 14px;cursor:pointer;"
                                     wire:click="$emit('prevQuiz',{{ $quiz->sort }})">
                                     OLDINGISI
                                 </span>
