@@ -75,7 +75,7 @@
             <div class="container">
 
                 @if ($quiz->category_id == 1)
-                    @if ($quiz->sort == 33)
+                    @if ($quiz->sort == 40)
                         <div class="row y-gap-20 justify-center text-center mt-20">
                             <div class="col-auto">
 

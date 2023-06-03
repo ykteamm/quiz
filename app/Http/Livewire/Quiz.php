@@ -16,6 +16,7 @@ class Quiz extends Component
     public $error;
     public $message;
     public $message2;
+    public $message3;
 
     public $user_id;
 
@@ -346,6 +347,7 @@ class Quiz extends Component
             }else{
                 $this->message = 'Sizda B12 vitaminiga extiyoj kam.';
             }
+
             $ques2 = Question::whereIn('sort',[29,30,31,32])->pluck('id')->toArray();
 
             $ans_array2 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques2)->orderBy('question_id','DESC')->count();
@@ -359,6 +361,18 @@ class Quiz extends Component
                 $this->message2 = 'Sizda D vitaminiga extiyoj kam.';
             }
 
+            $ques3 = Question::whereIn('sort',[36,37,38,39,40,41,42])->pluck('id')->toArray();
+
+            $ans_array3 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques3)->orderBy('question_id','DESC')->count();
+
+            if($ans_array3 > 1)
+            {
+                $this->message3 = 'Sizda Kaltsiy yetishmovchiligi mavjud.';
+            }elseif($ans_array3 > 3){
+                $this->message3 = 'Sizda Kaltsiy yetishmovchiligi juda yuqori.';
+            }else{
+                $this->message3 = 'Sizda Kaltsiyga extiyoj kam.';
+            }
 
             $this->quiz = Question::with('select','category')->where('sort',$s)->first();
 
