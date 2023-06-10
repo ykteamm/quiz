@@ -17,6 +17,7 @@ class Quiz extends Component
     public $message;
     public $message2;
     public $message3;
+    public $message4;
 
     public $user_id;
 
@@ -372,6 +373,19 @@ class Quiz extends Component
                 $this->message3 = 'Sizda Kaltsiy yetishmovchiligi juda yuqori.';
             }else{
                 $this->message3 = 'Sizda Kaltsiyga extiyoj kam.';
+            }
+
+            $ques4 = Question::whereIn('sort',[40,41,42,43,44,45])->pluck('id')->toArray();
+
+            $ans_array4 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques4)->orderBy('question_id','DESC')->count();
+
+            if($ans_array4 > 1)
+            {
+                $this->message4 = 'Sizda Temir moddasiga yetishmovchiligi mavjud.';
+            }elseif($ans_array4 > 3){
+                $this->message4 = 'Sizda Temir moddasiga yetishmovchiligi juda yuqori.';
+            }else{
+                $this->message4 = 'Sizda Temir moddasiga extiyoj kam.';
             }
 
             $this->quiz = Question::with('select','category')->where('sort',$s)->first();
