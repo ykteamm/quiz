@@ -18,6 +18,8 @@ class Quiz extends Component
     public $message2;
     public $message3;
     public $message4;
+    public $message5;
+    public $message6;
 
     public $user_id;
 
@@ -386,6 +388,33 @@ class Quiz extends Component
                 $this->message4 = 'Sizda Temir moddasiga yetishmovchiligi juda yuqori.';
             }else{
                 $this->message4 = 'Sizda Temir moddasiga extiyoj kam.';
+            }
+
+            $ques5 = Question::whereIn('sort',[51,52,53,54,55,56])->pluck('id')->toArray();
+
+            $ans_array5 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques5)->orderBy('question_id','DESC')->count();
+
+            if($ans_array5 > 1)
+            {
+                $this->message5 = 'Sizda Magneziy yetishmovchiligi mavjud.';
+            }elseif($ans_array5 > 3){
+                $this->message5 = 'Sizda Magneziy yetishmovchiligi juda yuqori.';
+            }else{
+                $this->message5 = 'Sizda Magneziy extiyoj kam.';
+            }
+
+
+            $ques6 = Question::whereIn('sort',[57,58,59,60,61])->pluck('id')->toArray();
+
+            $ans_array6 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques6)->orderBy('question_id','DESC')->count();
+
+            if($ans_array6 > 1)
+            {
+                $this->message6 = 'Sizda Rux moddasiga yetishmovchiligi mavjud.';
+            }elseif($ans_array6 > 3){
+                $this->message6 = 'Sizda Rux moddasiga yetishmovchiligi juda yuqori.';
+            }else{
+                $this->message6 = 'Sizda Rux moddasiga extiyoj kam.';
             }
 
             $this->quiz = Question::with('select','category')->where('sort',$s)->first();

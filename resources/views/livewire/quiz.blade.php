@@ -75,7 +75,7 @@
             <div class="container">
 
                 @if ($quiz->category_id == 1)
-                    @if ($quiz->sort == 46)
+                    @if ($quiz->sort == 57)
                         <div class="row y-gap-20 justify-center text-center mt-20">
                             <div class="col-auto">
 
@@ -126,6 +126,20 @@
                                     color: #1d4d57;
                                     ">
                                         {{ $message4 }} </h4>
+                                        <h4 class=""
+                                        style="text-transform: uppercase;
+                                    font-size: 3rem;
+                                    line-height: 2.8125rem;
+                                    color: #1d4d57;
+                                    ">
+                                        {{ $message5 }} </h4>
+                                        <h4 class=""
+                                        style="text-transform: uppercase;
+                                    font-size: 3rem;
+                                    line-height: 2.8125rem;
+                                    color: #1d4d57;
+                                    ">
+                                        {{ $message6 }} </h4>
 
                                 </div>
 
