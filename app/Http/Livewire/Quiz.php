@@ -20,6 +20,7 @@ class Quiz extends Component
     public $message4;
     public $message5;
     public $message6;
+    public $message7;
 
     public $user_id;
 
@@ -415,6 +416,24 @@ class Quiz extends Component
                 $this->message6 = 'Sizda Rux moddasiga yetishmovchiligi juda yuqori.';
             }else{
                 $this->message6 = 'Sizda Rux moddasiga extiyoj kam.';
+            }
+
+
+            $ques7 = Question::whereIn('sort',[63,64])->pluck('id')->toArray();
+            $ques71 = Question::whereIn('sort',[65,66,67])->pluck('id')->toArray();
+            $ques72 = Question::whereIn('sort',[68,69,70,71,72])->pluck('id')->toArray();
+
+            $count7 = Answer::where('select',2)->where('user_id',$this->user_id)->whereIn('question_id',$ques7)->orderBy('question_id','DESC')->count();
+            $count71 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques7)->orderBy('question_id','DESC')->count();
+            $count72 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques7)->orderBy('question_id','DESC')->count();
+
+            if(($count7 + $count71) > 2)
+            {
+                $this->message7 = 'Sizda uxlab qolish muammosi mavjud.';
+            }elseif($count72 > 2){
+                $this->message7 = 'Toshdek qotib uxlar ekansiz.';
+            }else{
+                $this->message7 = 'Sizda uxlash qolib muammosi mavjud emas.';
             }
 
             $this->quiz = Question::with('select','category')->where('sort',$s)->first();
