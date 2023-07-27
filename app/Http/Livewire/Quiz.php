@@ -450,9 +450,9 @@ class Quiz extends Component
                 $ques71 = Question::whereIn('sort',[59,60,61])->pluck('id')->toArray();
                 $ques72 = Question::whereIn('sort',[62,63,64,65,66])->pluck('id')->toArray();
 
-                $count7 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques7)->orderBy('question_id','DESC')->count();
-                $count71 = Answer::where('select',2)->where('user_id',$this->user_id)->whereIn('question_id',$ques71)->orderBy('question_id','DESC')->count();
-                $count72 = Answer::where('select',2)->where('user_id',$this->user_id)->whereIn('question_id',$ques72)->orderBy('question_id','DESC')->count();
+                $count7 = Answer::where('select',2)->where('user_id',$this->user_id)->whereIn('question_id',$ques7)->orderBy('question_id','DESC')->count();
+                $count71 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques71)->orderBy('question_id','DESC')->count();
+                $count72 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques72)->orderBy('question_id','DESC')->count();
 
                 if(($count7 + $count71) > 3)
                 {
