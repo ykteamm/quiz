@@ -75,7 +75,7 @@
             <div class="container">
 
                 @if ($quiz->category_id == 1)
-                    @if ($quiz->sort == 67)
+                    @if ($quiz->sort == 86)
                         <div class="row y-gap-20 justify-center text-center mt-20">
                             <div class="col-auto">
 
@@ -152,7 +152,7 @@
                             </div>
 
                         </div>
-                    @else
+                    {{-- @else
                         <div class="row y-gap-20 justify-center text-center mt-20">
                             <div class="col-auto">
 
@@ -171,7 +171,7 @@
 
                             </div>
 
-                        </div>
+                        </div> --}}
                     @endif
                     @if ($quiz->sort == 1)
                         <div class="row y-gap-20 justify-center text-center">
@@ -282,7 +282,78 @@
                                 </button>
                             </div>
                         </div>
-                    @elseif ($quiz->sort == 26)
+                    @elseif ($quiz->sort == $uyqu_text)
+                        <div class="row y-gap-20 justify-center text-center mt-20">
+                            <div class="col-auto">
+                                <div class="sectionTitle ">
+                                    <h4 class=""
+                                        style="text-transform: uppercase;
+                                    font-size: 3rem;
+                                    line-height: 2.8125rem;
+                                    color: #1d4d57;
+                                    ">
+                                        {{ $quiz->question }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row y-gap-20 justify-center text-center mt-90">
+
+                            <div class="col-auto" style="width:30%;">
+                                <button type="button" class="button -md text-purple-1"
+                                    style="background: #565aff;color:white;width:100%;"
+                                    wire:click="$emit('prevQuiz',{{ $uyqu }})">
+                                    Davom etish
+                                </button>
+                            </div>
+                        </div>
+                    @elseif ($quiz->sort == $kayfiyat_text)
+                        <div class="row y-gap-20 justify-center text-center mt-20">
+                            <div class="col-auto">
+                                <div class="sectionTitle ">
+                                    <h4 class=""
+                                        style="text-transform: uppercase;
+                                    font-size: 3rem;
+                                    line-height: 2.8125rem;
+                                    color: #1d4d57;
+                                    ">
+                                        {{ $quiz->question }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row y-gap-20 justify-center text-center mt-90">
+
+                            <div class="col-auto" style="width:30%;">
+                                <button type="button" class="button -md text-purple-1"
+                                    style="background: #565aff;color:white;width:100%;"
+                                    wire:click="$emit('prevQuiz',{{ $kayfiyat }})">
+                                    Davom etish
+                                </button>
+                            </div>
+                        </div>
+                    @elseif ($quiz->sort == $asab_text)
+                        <div class="row y-gap-20 justify-center text-center mt-20">
+                            <div class="col-auto">
+                                <div class="sectionTitle ">
+                                    <h4 class=""
+                                        style="text-transform: uppercase;
+                                    font-size: 3rem;
+                                    line-height: 2.8125rem;
+                                    color: #1d4d57;
+                                    ">
+                                        {{ $quiz->question }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row y-gap-20 justify-center text-center mt-90">
+
+                            <div class="col-auto" style="width:30%;">
+                                <button type="button" class="button -md text-purple-1"
+                                    style="background: #565aff;color:white;width:100%;"
+                                    wire:click="$emit('prevQuiz',{{ $asab }})">
+                                    Davom etish
+                                </button>
+                            </div>
+                        </div>
                     @endif
                 @elseif($quiz->category_id == 2)
                     <div class="row y-gap-20 justify-center text-center mt-20">
@@ -395,60 +466,6 @@
                         }
                     </script>
                 @endif
-
-                {{-- <div class="row y-gap-20 justify-center text-center mt-20">
-              <div class="col-auto">
-
-                <div class="sectionTitle ">
-
-                  <h4 class="" style="text-transform: uppercase;
-                  font-size: 3rem;
-                  line-height: 2.8125rem;
-                  color: #1d4d57;
-                  "> {{$quiz->question}} </h4>
-
-
-                </div>
-
-              </div>
-
-            </div>
-            <div >
-
-              <div class="row y-gap-20 justify-center text-center">
-
-                <div class="col-auto" style="width:60%;">
-                  <button class="button -md text-purple-1" style="background: #ffffff;color:#204f59;width:100%;" onclick="test()">
-                    Energized
-                  </button>
-                </div>
-              </div>
-              <div class="row y-gap-20 justify-center text-center">
-
-                <div class="col-auto" style="width:60%;">
-                  <button class="button -md text-purple-1" style="background: #ffffff;color:#204f59;width:100%;" onclick="test()">
-                    Focused
-                  </button>
-                </div>
-              </div>
-              <div class="row y-gap-20 justify-center text-center">
-
-                <div class="col-auto" style="width:60%;">
-                  <button class="button -md text-purple-1" style="background: #ffffff;color:#204f59;width:100%;" onclick="test()">
-                    Nervous
-                  </button>
-                </div>
-              </div>
-              <div class="row y-gap-20 justify-center text-center">
-
-                <div class="col-auto" style="width:60%;">
-                  <button class="button -md text-purple-1" style="background: #ffffff;color:#204f59;width:100%;" onclick="test()">
-                    No effect
-                  </button>
-                </div>
-              </div>
-
-            </div> --}}
 
             </div>
 
