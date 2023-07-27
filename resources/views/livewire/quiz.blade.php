@@ -1,4 +1,19 @@
 <div>
+    <style>
+        
+        @media only screen and (max-width: 800px) {
+            h4 {
+                font-size: 20px !important;
+                line-height: 1.8125rem !important;
+            }
+        }
+        @media only screen and (max-width: 500px) {
+            h4 {
+                font-size: 150x !important;
+                line-height: 1.3125rem !important;
+            }
+        }
+    </style>
     <header data-add-bg="" class="header -type-3 js-header">
 
 
@@ -98,55 +113,69 @@
 
                                 <div class="sectionTitle ">
 
-                                    <h4 class=""
+                                    <h4 class="mb-40"
                                         style="text-transform: uppercase;
                                     font-size: 3rem;
                                     line-height: 2.8125rem;
                                     color: #1d4d57;
                                     ">
                                         {{ $message }} </h4>
-                                    <h4 class=""
+                                    <h4 class="mb-40"
                                         style="text-transform: uppercase;
                                     font-size: 3rem;
                                     line-height: 2.8125rem;
                                     color: #1d4d57;
                                     ">
                                         {{ $message2 }} </h4>
-                                        <h4 class=""
+                                        <h4 class="mb-40"
                                         style="text-transform: uppercase;
                                     font-size: 3rem;
                                     line-height: 2.8125rem;
                                     color: #1d4d57;
                                     ">
                                         {{ $message3 }} </h4>
-                                        <h4 class=""
+                                        <h4 class="mb-40"
                                         style="text-transform: uppercase;
                                     font-size: 3rem;
                                     line-height: 2.8125rem;
                                     color: #1d4d57;
                                     ">
                                         {{ $message4 }} </h4>
-                                        <h4 class=""
+                                        <h4 class="mb-40"
                                         style="text-transform: uppercase;
                                     font-size: 3rem;
                                     line-height: 2.8125rem;
                                     color: #1d4d57;
                                     ">
                                         {{ $message5 }} </h4>
-                                        <h4 class=""
+                                        <h4 class="mb-40"
                                         style="text-transform: uppercase;
                                     font-size: 3rem;
                                     line-height: 2.8125rem;
                                     color: #1d4d57;
                                     ">
                                         {{ $message6 }} </h4>
-                                        <h4 class=""
+                                        <h4 class="mb-40"
                                         style="text-transform: uppercase;
                                     font-size: 3rem;
                                     line-height: 2.8125rem;
                                     color: #1d4d57;
                                     ">
                                         {{ $message7 }} </h4>
+                                        <h4 class="mb-40"
+                                        style="text-transform: uppercase;
+                                    font-size: 3rem;
+                                    line-height: 2.8125rem;
+                                    color: #1d4d57;
+                                    ">
+                                        {{ $message8 }} </h4>
+                                        <h4 class="mb-40"
+                                        style="text-transform: uppercase;
+                                    font-size: 3rem;
+                                    line-height: 2.8125rem;
+                                    color: #1d4d57;
+                                    ">
+                                        {{ $message9 }} </h4>
                                 </div>
 
                             </div>
@@ -174,6 +203,19 @@
                         </div> --}}
                     @endif
                     @if ($quiz->sort == 1)
+                    <div class="row y-gap-20 justify-center text-center mt-20">
+                        <div class="col-auto">
+                            <div class="sectionTitle ">
+                                <h4 class=""
+                                    style="text-transform: uppercase;
+                                font-size: 3rem;
+                                line-height: 2.8125rem;
+                                color: #1d4d57;
+                                ">
+                                    {{ $quiz->question }}</h4>
+                            </div>
+                        </div>
+                    </div>
                         <div class="row y-gap-20 justify-center text-center">
 
                             <div class="col-auto" style="width:60%;">
@@ -195,6 +237,19 @@
                             </div>
                         </div>
                     @elseif ($quiz->sort == 2)
+                    <div class="row y-gap-20 justify-center text-center mt-20">
+                        <div class="col-auto">
+                            <div class="sectionTitle ">
+                                <h4 class=""
+                                    style="text-transform: uppercase;
+                                font-size: 3rem;
+                                line-height: 2.8125rem;
+                                color: #1d4d57;
+                                ">
+                                    {{ $quiz->question }}</h4>
+                            </div>
+                        </div>
+                    </div>
                         <div class="row y-gap-20 justify-center text-center">
 
                             <div class="col-auto" style="width:60%;">
@@ -217,6 +272,19 @@
                             </div>
                         </div>
                     @elseif ($quiz->sort == 3)
+                    <div class="row y-gap-20 justify-center text-center mt-20">
+                        <div class="col-auto">
+                            <div class="sectionTitle ">
+                                <h4 class=""
+                                    style="text-transform: uppercase;
+                                font-size: 3rem;
+                                line-height: 2.8125rem;
+                                color: #1d4d57;
+                                ">
+                                    {{ $quiz->question }}</h4>
+                            </div>
+                        </div>
+                    </div>
                         <div class="row y-gap-20 justify-center text-center">
 
                             <div class="col-auto" style="width:60%;">
@@ -239,6 +307,19 @@
                             </div>
                         </div>
                     @elseif ($quiz->sort == 5)
+                    <div class="row y-gap-20 justify-center text-center mt-20">
+                        <div class="col-auto">
+                            <div class="sectionTitle ">
+                                <h4 class=""
+                                    style="text-transform: uppercase;
+                                font-size: 3rem;
+                                line-height: 2.8125rem;
+                                color: #1d4d57;
+                                ">
+                                    {{ $quiz->question }}</h4>
+                            </div>
+                        </div>
+                    </div>
                         <div class="row y-gap-20 justify-center text-center">
 
                             <div class="col-auto" style="width:60%;">
@@ -261,6 +342,19 @@
                             </div>
                         </div>
                     @elseif ($quiz->sort == 6)
+                    <div class="row y-gap-20 justify-center text-center mt-20">
+                        <div class="col-auto">
+                            <div class="sectionTitle ">
+                                <h4 class=""
+                                    style="text-transform: uppercase;
+                                font-size: 3rem;
+                                line-height: 2.8125rem;
+                                color: #1d4d57;
+                                ">
+                                    {{ $quiz->question }}</h4>
+                            </div>
+                        </div>
+                    </div>
                         <div class="row y-gap-20 justify-center text-center">
 
                             <div class="col-auto" style="width:60%;">
@@ -301,7 +395,7 @@
                             <div class="col-auto" style="width:30%;">
                                 <button type="button" class="button -md text-purple-1"
                                     style="background: #565aff;color:white;width:100%;"
-                                    wire:click="$emit('prevQuiz',{{ $uyqu }})">
+                                    wire:click="$emit('prevQuiz',{{ $uyqu+1 }})">
                                     Davom etish
                                 </button>
                             </div>
@@ -325,7 +419,7 @@
                             <div class="col-auto" style="width:30%;">
                                 <button type="button" class="button -md text-purple-1"
                                     style="background: #565aff;color:white;width:100%;"
-                                    wire:click="$emit('prevQuiz',{{ $kayfiyat }})">
+                                    wire:click="$emit('prevQuiz',{{ $kayfiyat+1 }})">
                                     Davom etish
                                 </button>
                             </div>
@@ -349,7 +443,7 @@
                             <div class="col-auto" style="width:30%;">
                                 <button type="button" class="button -md text-purple-1"
                                     style="background: #565aff;color:white;width:100%;"
-                                    wire:click="$emit('prevQuiz',{{ $asab }})">
+                                    wire:click="$emit('prevQuiz',{{ $asab+1 }})">
                                     Davom etish
                                 </button>
                             </div>

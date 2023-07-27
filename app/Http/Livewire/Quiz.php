@@ -21,6 +21,8 @@ class Quiz extends Component
     public $message5;
     public $message6;
     public $message7;
+    public $message8;
+    public $message9;
 
     public $user_id;
 
@@ -56,24 +58,13 @@ class Quiz extends Component
 
     public function mount()
     {
-        $this->sort = 66;
+        $this->sort = 1;
         $this->quiz = Question::where('sort',$this->sort)->first();
     }
 
     public function prev_Quiz($prev_sort)
     {
-        if($prev_sort == $this->uyqu)
-        {
-            $this->quiz = Question::where('sort',$prev_sort)->first();
-        }elseif($prev_sort == $this->kayfiyat)
-        {
-            $this->quiz = Question::where('sort',$prev_sort)->first();
-        }
-        elseif($prev_sort == $this->asab)
-        {
-            $this->quiz = Question::where('sort',$prev_sort)->first();
-        }
-        else{
+        
 
             if($prev_sort > 8)
             {
@@ -102,6 +93,18 @@ class Quiz extends Component
 
             }
 
+            // if($prev_sort == $this->uyqu)
+            // {
+            //     $this->quiz = Question::where('sort',$prev_sort)->first();
+            // }elseif($prev_sort == $this->kayfiyat)
+            // {
+            //     $this->quiz = Question::where('sort',$prev_sort)->first();
+            // }
+            // elseif($prev_sort == $this->asab)
+            // {
+            //     $this->quiz = Question::where('sort',$prev_sort)->first();
+            // }
+
             if($prev_sort == 5)
             {
                 $question = Question::where('sort',$prev_sort-1)->first();
@@ -125,7 +128,6 @@ class Quiz extends Component
             else{
                 $this->quiz = Question::where('sort',$prev_sort-1)->first();
             }
-        }
         
     }
 
@@ -357,24 +359,12 @@ class Quiz extends Component
 
     public function button_Select($s,$answer)
     {
-        if($s == $this->uyqu)
-        {
-            $this->quiz = Question::where('sort',$this->uyqu_text)->first();
-        }elseif($s == $this->kayfiyat)
-        {
+        
 
-            $this->quiz = Question::where('sort',$this->kayfiyat_text)->first();
-        }
-        elseif($s == $this->asab)
-        {
+            $max_sort = 86;
+            // $max_sort = Question::orderBy('sort','DESC')->first();
 
-            $this->quiz = Question::where('sort',$this->asab_text)->first();
-        }
-        else{
-
-            $max_sort = Question::orderBy('sort','DESC')->first();
-
-            if($max_sort->sort == $s)
+            if($max_sort == $s)
             {
                 $ques = Question::whereIn('sort',[23,24,25,26,27,28])->pluck('id')->toArray();
 
@@ -386,7 +376,7 @@ class Quiz extends Component
                 }elseif($ans_array > 3){
                     $this->message = 'Sizda B12 yetishmovchiligi juda yuqori.';
                 }else{
-                    $this->message = 'Sizda B12 vitaminiga extiyoj kam.';
+                    $this->message = 'Sizda B12 vitaminiga extiyoj yo\'q.';
                 }
 
                 $ques2 = Question::whereIn('sort',[29,30,31,32])->pluck('id')->toArray();
@@ -399,10 +389,10 @@ class Quiz extends Component
                 }elseif($ans_array2 > 3){
                     $this->message2 = 'Sizda D vitamini yetishmovchiligi juda yuqori.';
                 }else{
-                    $this->message2 = 'Sizda D vitaminiga extiyoj kam.';
+                    $this->message2 = 'Sizda D vitaminiga extiyoj yo\'q.';
                 }
 
-                $ques3 = Question::whereIn('sort',[36,37,38,39,40,41,42])->pluck('id')->toArray();
+                $ques3 = Question::whereIn('sort',[33,34,35,36,37,38,39])->pluck('id')->toArray();
 
                 $ans_array3 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques3)->orderBy('question_id','DESC')->count();
 
@@ -412,7 +402,7 @@ class Quiz extends Component
                 }elseif($ans_array3 > 3){
                     $this->message3 = 'Sizda Kaltsiy yetishmovchiligi juda yuqori.';
                 }else{
-                    $this->message3 = 'Sizda Kaltsiyga extiyoj kam.';
+                    $this->message3 = 'Sizda Kaltsiyga extiyoj yo\'q.';
                 }
 
                 $ques4 = Question::whereIn('sort',[40,41,42,43,44,45])->pluck('id')->toArray();
@@ -425,10 +415,10 @@ class Quiz extends Component
                 }elseif($ans_array4 > 3){
                     $this->message4 = 'Sizda Temir moddasiga yetishmovchiligi juda yuqori.';
                 }else{
-                    $this->message4 = 'Sizda Temir moddasiga extiyoj kam.';
+                    $this->message4 = 'Sizda Temir moddasiga extiyoj yo\'q.';
                 }
 
-                $ques5 = Question::whereIn('sort',[51,52,53,54,55,56])->pluck('id')->toArray();
+                $ques5 = Question::whereIn('sort',[46,47,48,49,50,51])->pluck('id')->toArray();
 
                 $ans_array5 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques5)->orderBy('question_id','DESC')->count();
 
@@ -438,11 +428,11 @@ class Quiz extends Component
                 }elseif($ans_array5 > 3){
                     $this->message5 = 'Sizda Magneziy yetishmovchiligi juda yuqori.';
                 }else{
-                    $this->message5 = 'Sizda Magneziy extiyoj kam.';
+                    $this->message5 = 'Sizda Magneziy extiyoj yo\'q.';
                 }
 
 
-                $ques6 = Question::whereIn('sort',[57,58,59,60,61])->pluck('id')->toArray();
+                $ques6 = Question::whereIn('sort',[52,53,54,55,56])->pluck('id')->toArray();
 
                 $ans_array6 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques6)->orderBy('question_id','DESC')->count();
 
@@ -452,7 +442,7 @@ class Quiz extends Component
                 }elseif($ans_array6 > 3){
                     $this->message6 = 'Sizda Rux moddasiga yetishmovchiligi juda yuqori.';
                 }else{
-                    $this->message6 = 'Sizda Rux moddasiga extiyoj kam.';
+                    $this->message6 = 'Sizda Rux moddasiga extiyoj yo\'q.';
                 }
 
 
@@ -484,39 +474,44 @@ class Quiz extends Component
 
                 if($ball8 <= 4 )
                 {
-                    $this->message8 = 'Oddiy';
+                    $this->message8 = 'Sizni kayfiyatingiz holati oddiy';
                 }elseif($ball8 > 4 && $ball8 <= 9){
-                    $this->message8 = 'Yengil depressiya';
+                    $this->message8 = 'Sizni kayfiyatingiz holati: yengil depressiya';
                 }elseif($ball8 > 9 && $ball8 <= 14){
-                    $this->message8 = 'O\'rtacha depressiya';
+                    $this->message8 = 'Sizni kayfiyatingiz holati: o\'rtacha depressiya';
                 }elseif($ball8 > 14 && $ball8 <= 19){
-                    $this->message8 = 'O\'rtacha og\'ir ruhiy tushkunlik';
+                    $this->message8 = 'Sizni kayfiyatingiz holati: o\'rtacha og\'ir ruhiy tushkunlik';
                 }
                 else{
-                    $this->message8 = 'Jiddiy yoki og’ir depressiya';
+                    $this->message8 = 'Sizni kayfiyatingiz holati: jiddiy yoki og’ir depressiya';
                 }
 
-                $ques9 = Question::whereIn('sort',[76,77,78,79,80,81,82,83,84,85])->pluck('id')->toArray();
+                $ques9 = Question::whereIn('sort',[76,77,78,81,84,85])->pluck('id')->toArray();
+                $ques91 = Question::whereIn('sort',[79,80,82,83])->pluck('id')->toArray();
 
                 $count9 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques9)->orderBy('question_id','DESC')->count();
                 $count91 = Answer::where('select',2)->where('user_id',$this->user_id)->whereIn('question_id',$ques9)->orderBy('question_id','DESC')->count();
                 $count92 = Answer::where('select',3)->where('user_id',$this->user_id)->whereIn('question_id',$ques9)->orderBy('question_id','DESC')->count();
                 $count93 = Answer::where('select',4)->where('user_id',$this->user_id)->whereIn('question_id',$ques9)->orderBy('question_id','DESC')->count();
+                $count94 = Answer::where('select',5)->where('user_id',$this->user_id)->whereIn('question_id',$ques9)->orderBy('question_id','DESC')->count();
 
-                $ball8 = $count8*0 + $count81*1 + $count82*2 + $count83*3;
+                $count99 = Answer::where('select',1)->where('user_id',$this->user_id)->whereIn('question_id',$ques9)->orderBy('question_id','DESC')->count();
+                $count991 = Answer::where('select',2)->where('user_id',$this->user_id)->whereIn('question_id',$ques9)->orderBy('question_id','DESC')->count();
+                $count992 = Answer::where('select',3)->where('user_id',$this->user_id)->whereIn('question_id',$ques9)->orderBy('question_id','DESC')->count();
+                $count993 = Answer::where('select',4)->where('user_id',$this->user_id)->whereIn('question_id',$ques9)->orderBy('question_id','DESC')->count();
+                $count994 = Answer::where('select',5)->where('user_id',$this->user_id)->whereIn('question_id',$ques9)->orderBy('question_id','DESC')->count();
 
-                if($ball8 <= 4 )
+                $ball9 = $count9*0 + $count91*1 + $count92*2 + $count93*3 + $count94*4;
+                $ball91 = $count99*4 + $count991*3 + $count992*2 + $count993*1 + $count994*0;
+                $uball9 = $ball9 + $ball91;
+                if($uball9 <= 13 )
                 {
-                    $this->message8 = 'Oddiy';
-                }elseif($ball8 > 4 && $ball8 <= 9){
-                    $this->message8 = 'Yengil depressiya';
-                }elseif($ball8 > 9 && $ball8 <= 14){
-                    $this->message8 = 'O\'rtacha depressiya';
-                }elseif($ball8 > 14 && $ball8 <= 19){
-                    $this->message8 = 'O\'rtacha og\'ir ruhiy tushkunlik';
+                    $this->message9 = 'Sizda past darajada asabiylik mavjud';
+                }elseif($uball9 > 13 && $uball9 <= 26){
+                    $this->message9 = 'Sizda o\'rta darajada asabiylik mavjud';
                 }
                 else{
-                    $this->message8 = 'Jiddiy yoki og’ir depressiya';
+                    $this->message9 = 'Sizda yuqori darajada asabiylik mavjud';
                 }
 
                 $this->quiz = Question::with('select','category')->where('sort',$s)->first();
@@ -525,13 +520,13 @@ class Quiz extends Component
             }else{
                 $question = Question::with('select','category')->where('sort',$s-1)->first();
                 $user = User::find($this->user_id);
-                // if(!in_array($s-1,$user->history))
-                //     {
-                //         $history = $user->history;
-                //         $history[] = $s-1;
-                //         $user->history = $history;
-                //         $user->save();
-                //     }
+                if(!in_array($s-1,$user->history))
+                    {
+                        $history = $user->history;
+                        $history[] = $s-1;
+                        $user->history = $history;
+                        $user->save();
+                    }
 
                 $exists_question = Question::where('sort',$s-1)->first();
                 $exists_answer = Answer::where('user_id',$this->user_id)->where('question_id',$exists_question->id)->orderBy('id','DESC')->first();
@@ -541,12 +536,12 @@ class Quiz extends Component
                         $exists_answer->select = $answer;
                         $exists_answer->save();
                     }else{
-                        // $ans = new Answer();
-                        // $ans->user_id = $this->user_id;
-                        // $ans->question_id = Question::where('sort',$s-1)->first()->id;
-                        // $ans->type = 2;
-                        // $ans->select = $answer;
-                        // $ans->save();
+                        $ans = new Answer();
+                        $ans->user_id = $this->user_id;
+                        $ans->question_id = Question::where('sort',$s-1)->first()->id;
+                        $ans->type = 2;
+                        $ans->select = $answer;
+                        $ans->save();
                     }
 
 
@@ -583,11 +578,24 @@ class Quiz extends Component
                     {
                         $this->message = 'B12 vitamini xomilador ayollarga mumkin emas.';
 
-                        $this->quiz = Question::with('select','category')->where('sort',$max_sort->sort)->first();
+                        $this->quiz = Question::with('select','category')->where('sort',$max_sort)->first();
 
                     }else{
                         $this->quiz = Question::with('select','category')->where('sort',5)->first();
                     }
+                }
+                elseif($s == $this->uyqu)
+                {
+                    $this->quiz = Question::where('sort',$this->uyqu_text)->first();
+                }elseif($s == $this->kayfiyat)
+                {
+
+                    $this->quiz = Question::where('sort',$this->kayfiyat_text)->first();
+                }
+                elseif($s == $this->asab)
+                {
+
+                    $this->quiz = Question::where('sort',$this->asab_text)->first();
                 }
                 else{
                     if($s == 10)
@@ -595,14 +603,16 @@ class Quiz extends Component
                         $this->quiz = Question::with('select','category')->where('sort',10)->first();
 
                     }else{
-                        // $s = $this->getSort($user->history,$s);
+
+                        $s = $this->getSort($user->history,$s);
+
+
                         $this->quiz = Question::with('select','category')->where('sort',$s)->first();
                     }
 
 
                 }
             }
-        }
         
 
     }
