@@ -19,9 +19,9 @@
 
       
       <div class="sidebar__item ">
-        <a href="dshb-bookmarks.html" class="d-flex items-center text-17 lh-1 fw-500 ">
+        <a href="{{route('dashboard')}}" class="d-flex items-center text-17 lh-1 fw-500 ">
           <i class="text-20 icon-bookmark mr-15"></i>
-          Bookmarks
+          Dashboard
         </a>
       </div>
 

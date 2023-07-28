@@ -23,5 +23,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class,'index'])->name('index');
 
 Route::get('admin', [AdminController::class,'index'])->name('admin');
+Route::get('dashboard', [AdminController::class,'dashboard'])->name('dashboard');
 
 Route::resource('question', QuestionController::class);

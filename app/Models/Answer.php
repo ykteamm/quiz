@@ -17,4 +17,11 @@ class Answer extends Model
         'select',
         'checkbox',
     ];
+
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
+
+
 }
